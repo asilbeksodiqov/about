@@ -1,0 +1,580 @@
+/* ============================================
+   BASE STYLES — style.css bilan mos
+   ============================================ */
+   :root {
+    --primary: #2563eb;
+    --primary-dark: #1e40af;
+    --primary-light: #60a5fa;
+    --surface: #ffffff;
+    --background: #f8fafc;
+    --text: #1e293b;
+    --text-light: #64748b;
+    --text-lighter: #94a3b8;
+    --border: #e2e8f0;
+    --shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.1);
+    --shadow-md: 0 20px 25px -5px rgba(0, 0, 0, 0.1);
+    --shadow-lg: 0 25px 50px -12px rgba(0, 0, 0, 0.25);
+    --radius: 16px;
+    --success: #10b981;
+    --error: #ef4444;
+
+    --transition-fast: 150ms;
+    --transition: 300ms;
+    --transition-slow: 500ms;
+
+    --ease-out: cubic-bezier(0, 0.55, 0.45, 1);
+    --ease-in-out: cubic-bezier(0.4, 0, 0.2, 1);
+    --bounce: cubic-bezier(0.68, -0.55, 0.265, 1.55);
+
+    --nav-height: 64px;
+    --header-height: 56px;
+}
+
+/* ============================================
+   RESET & GLOBAL
+   ============================================ */
+*, *::before, *::after {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    -webkit-tap-highlight-color: transparent;
+}
+
+html {
+    height: 100%;
+    overflow: hidden;
+}
+
+body {
+    height: 100%;
+    font-family: 'Outfit', system-ui, sans-serif;
+    background: var(--background);
+    color: var(--text);
+    overflow: hidden;
+    -webkit-text-size-adjust: 100%;
+    text-size-adjust: 100%;
+}
+
+/* ============================================
+   APP WRAPPER
+   ============================================ */
+#app {
+    position: fixed;
+    inset: 0;
+    background: var(--surface);
+    display: flex;
+    flex-direction: column;
+    overflow: hidden;
+    max-width: 428px;
+    margin: 0 auto;
+    box-shadow: 0 0 60px rgba(0, 0, 0, 0.15);
+}
+
+@media (min-width: 429px) {
+    body { background: #e2e8f0; overflow: auto; }
+    html { overflow: auto; }
+    #app { position: relative; height: 100vh; min-height: 600px; }
+}
+
+/* ============================================
+   FIXED HEADER — snap dan tashqarida, doim tepada
+   ============================================ */
+.fixed-header {
+    flex-shrink: 0;
+    height: var(--header-height);
+    display: flex;
+    align-items: center;
+    padding: 0 16px;
+    background: var(--surface);
+    border-bottom: 1px solid var(--border);
+    z-index: 50;
+}
+
+.back-btn {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    padding: 10px 20px 10px 14px;
+    height: 40px;
+    border: none;
+    border-radius: 12px;
+    font-family: 'Outfit', sans-serif;
+    font-size: 15px;
+    font-weight: 700;
+    color: #1a1a1a;
+    cursor: pointer;
+    background: rgba(189, 189, 189, 0.1);
+    border: 1px solid rgba(0, 0, 0, 0.1);
+    transition: all var(--transition) var(--ease-out);
+    user-select: none;
+    -webkit-tap-highlight-color: transparent;
+}
+
+.back-btn i {
+    margin-right: 8px;
+    font-size: 14px;
+}
+
+.back-btn:hover {
+    background: var(--background);
+    border-color: var(--text-light);
+    transform: translateY(-1px);
+}
+
+.back-btn:active {
+    transform: translateY(0);
+    transition: transform var(--transition-fast);
+}
+
+/* ============================================
+   PAGE — Snap scroll container
+   O'lcham: header va nav chegirib qolgan joy
+   ============================================ */
+.page {
+    display: none;
+    flex: 1;
+    overflow-y: scroll;
+    overflow-x: hidden;
+    scroll-snap-type: y mandatory;
+    -webkit-overflow-scrolling: touch;
+    opacity: 0;
+    animation: pageEnter 0.5s var(--ease-out) forwards;
+    /* Muhim: bu flex: 1 header va nav orasidagi joyny to'ldiradi */
+}
+
+.page.active {
+    display: block;
+}
+
+@keyframes pageEnter {
+    from { opacity: 0; }
+    to   { opacity: 1; }
+}
+
+/* ============================================
+   SNAP SECTIONS
+   Balandlik = ekran - header - nav
+   ============================================ */
+.snap-section {
+    height: calc(100vh - var(--header-height) - var(--nav-height));
+    min-height: calc(100svh - var(--header-height) - var(--nav-height));
+    scroll-snap-align: start;
+    scroll-snap-stop: always;
+    overflow: hidden;
+    display: flex;
+    flex-direction: column;
+    padding: 0 16px;
+    position: relative;
+}
+
+/* about-container flex:1 oladi, hint esa flex-shrink:0 bilan pastda qoladi */
+.snap-section > .section-hint.bottom {
+    margin-top: auto;
+}
+
+/* ============================================
+   BOTTOM NAVIGATION — snap dan tashqarida, doim pastda
+   ============================================ */
+.bottom-nav {
+    flex-shrink: 0;
+    display: flex;
+    align-items: center;
+    justify-content: space-around;
+    height: var(--nav-height);
+    background: var(--surface);
+    border-top: 1px solid var(--border);
+    padding-bottom: env(safe-area-inset-bottom, 0px);
+    box-shadow: 0 -4px 20px rgba(0, 0, 0, 0.06);
+    z-index: 50;
+}
+
+.nav-btn {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    gap: 3px;
+    background: none;
+    border: none;
+    padding: 8px 0;
+    color: var(--text-lighter);
+    cursor: pointer;
+    font-family: inherit;
+    font-size: 10px;
+    font-weight: 500;
+    transition: color var(--transition-fast);
+    -webkit-tap-highlight-color: transparent;
+}
+
+.nav-btn i {
+    font-size: 21px;
+    display: block;
+    transition: transform var(--transition) var(--bounce), color var(--transition-fast);
+}
+
+.nav-btn.active { color: var(--primary); }
+.nav-btn.active i { transform: translateY(-2px) scale(1.12); }
+.nav-btn:active i {
+    transform: scale(0.88);
+    transition: transform var(--transition-fast);
+}
+
+/* ============================================
+   ABOUT CONTAINER
+   ============================================ */
+.about-container {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    overflow: hidden;
+    min-height: 0;
+}
+
+/* ============================================
+   SECTION TITLE
+   ============================================ */
+.section-title {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    margin: 10px 0 12px;
+    color: var(--text);
+    font-size: 18px;
+    font-weight: 700;
+    flex-shrink: 0;
+}
+
+.section-title i {
+    color: var(--primary);
+    font-size: 17px;
+}
+
+/* ============================================
+   SECTION HINT — pastda va tepada bir xil uslub
+   ============================================ */
+.section-hint {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 3px;
+    flex-shrink: 0;
+    cursor: pointer;
+    -webkit-tap-highlight-color: transparent;
+}
+
+.section-hint i {
+    font-size: 13px;
+    color: var(--text-lighter);
+}
+
+.section-hint span {
+    font-size: 10px;
+    color: var(--text-lighter);
+    font-weight: 500;
+    letter-spacing: 0.5px;
+    text-transform: uppercase;
+}
+
+.section-hint:hover i,
+.section-hint:hover span {
+    color: var(--primary);
+}
+
+/* Pastga ishora (karyera qismida) */
+.section-hint.bottom {
+    padding: 8px 0 10px;
+    animation: hintDown 2s ease-in-out infinite;
+}
+
+@keyframes hintDown {
+    0%, 100% { transform: translateY(0); opacity: 0.5; }
+    50%       { transform: translateY(4px); opacity: 0.85; }
+}
+
+/* Tepaga ishora (ko'nikmalar qismida) */
+.section-hint.top {
+    padding: 10px 0 8px;
+    animation: hintUp 2s ease-in-out infinite;
+}
+
+@keyframes hintUp {
+    0%, 100% { transform: translateY(0); opacity: 0.5; }
+    50%       { transform: translateY(-4px); opacity: 0.85; }
+}
+
+/* ============================================
+   KARYERA — TIMELINE
+   ============================================ */
+.timeline-section {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    overflow: hidden;
+    /* Bo'sh joy timeline pastida qoladi, section-hint.bottom pastda turadi */
+}
+
+.timeline {
+    position: relative;
+    padding-left: 28px;
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+    /* flex:1 yo'q — content o'z balandligini oladi, pastda bo'sh joy qoladi */
+}
+
+.timeline::before {
+    content: '';
+    position: absolute;
+    left: 18px;
+    top: 6px;
+    bottom: 6px;
+    width: 2px;
+    background: linear-gradient(to bottom, var(--primary), rgba(37, 99, 235, 0.1));
+}
+
+.timeline-item {
+    display: flex;
+    position: relative;
+    animation: slideUp 0.45s var(--ease-out) forwards;
+    opacity: 0;
+    transform: translateY(16px);
+    flex-shrink: 0;
+    /* gap o'rniga margin — oxirgi elementda ortiqcha bo'shliq qolmasin */
+    margin-bottom: 12px;
+}
+
+.timeline-item:last-child {
+    margin-bottom: 0;
+}
+
+.timeline-item:nth-child(1) { animation-delay: 0.1s; }
+.timeline-item:nth-child(2) { animation-delay: 0.25s; }
+.timeline-item:nth-child(3) { animation-delay: 0.4s; }
+
+.timeline-icon {
+    width: 36px;
+    height: 36px;
+    background: var(--primary);
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: white;
+    font-size: 14px;
+    position: absolute;
+    left: 0;
+    transform: translateX(-9px);
+    border: 2.5px solid var(--surface);
+    box-shadow: 0 3px 10px rgba(37, 99, 235, 0.22);
+    z-index: 2;
+    flex-shrink: 0;
+}
+
+.timeline-content {
+    margin-left: 44px;
+    background: var(--surface);
+    padding: 10px 12px;
+    border-radius: 12px;
+    border: 1px solid var(--border);
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.06);
+    flex: 1;
+}
+
+.timeline-date {
+    font-size: 11px;
+    color: var(--primary);
+    font-weight: 600;
+    margin-bottom: 3px;
+    display: inline-block;
+    padding: 2px 8px;
+    background: rgba(37, 99, 235, 0.08);
+    border-radius: 20px;
+}
+
+.timeline-content h4 {
+    margin: 3px 0 2px;
+    color: var(--text);
+    font-size: 14px;
+    font-weight: 700;
+}
+
+.timeline-subtitle {
+    font-size: 11px;
+    color: var(--primary);
+    font-weight: 600;
+    margin-bottom: 3px;
+}
+
+.timeline-content p {
+    color: var(--text-light);
+    font-size: 11px;
+    line-height: 1.4;
+}
+
+.skill-tags {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 4px;
+    margin-top: 5px;
+}
+
+.skill-tag {
+    padding: 2px 7px;
+    background: var(--background);
+    border: 1px solid var(--border);
+    border-radius: 10px;
+    font-size: 10px;
+    color: var(--text-light);
+    font-weight: 500;
+}
+
+/* ============================================
+   KO'NIKMALAR
+   ============================================ */
+.skills-section {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    overflow: hidden;
+}
+
+.skills-grid {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+}
+
+.skill-category {
+    background: var(--surface);
+    padding: 14px 16px;
+    border-radius: var(--radius);
+    border: 1px solid var(--border);
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.06);
+    display: inline-block;
+    width: 100%;
+    animation: slideUp 0.45s var(--ease-out) 0.15s forwards;
+    opacity: 0;
+    transform: translateY(16px);
+}
+
+.skill-list {
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+}
+
+.skill-item {
+    display: flex;
+    flex-direction: column;
+    gap: 5px;
+}
+
+.skill-item span {
+    font-size: 13px;
+    color: var(--text);
+    font-weight: 500;
+}
+
+.skill-bar {
+    height: 7px;
+    background: var(--background);
+    border-radius: 4px;
+    overflow: hidden;
+}
+
+.skill-level {
+    height: 100%;
+    background: linear-gradient(90deg, var(--primary), var(--primary-light));
+    border-radius: 4px;
+    transition: width 1.4s var(--ease-out);
+}
+
+/* ============================================
+   KEYFRAMES
+   ============================================ */
+@keyframes slideUp {
+    from { opacity: 0; transform: translateY(18px); }
+    to   { opacity: 1; transform: translateY(0); }
+}
+
+@keyframes fadeIn {
+    from { opacity: 0; }
+    to   { opacity: 1; }
+}
+
+/* ============================================
+   TOAST
+   ============================================ */
+.toast {
+    position: fixed;
+    top: -110px;
+    left: 50%;
+    transform: translateX(-50%);
+    background: white;
+    padding: 14px 18px;
+    border-radius: var(--radius);
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    box-shadow: var(--shadow-lg);
+    z-index: 9998;
+    opacity: 0;
+    border-left: 4px solid var(--success);
+    width: calc(100% - 32px);
+    max-width: 380px;
+    transition: top 0.38s var(--ease-out), opacity 0.28s;
+}
+
+.toast.show { opacity: 1; top: 16px; }
+.toast.success { border-left-color: var(--success); }
+.toast.success .toast-icon { color: var(--success); }
+.toast.error { border-left-color: var(--error); }
+.toast.error .toast-icon { color: var(--error); }
+.toast.info { border-left-color: var(--primary); }
+.toast.info .toast-icon { color: var(--primary); }
+.toast.warning { border-left-color: #f59e0b; }
+.toast.warning .toast-icon { color: #f59e0b; }
+
+.toast-icon {
+    width: 22px; height: 22px;
+    display: flex; align-items: center; justify-content: center;
+    flex-shrink: 0; font-size: 18px;
+}
+
+.toast-content { flex: 1; min-width: 0; }
+
+.toast-title {
+    font-weight: 600; font-size: 14px;
+    color: var(--text); margin-bottom: 2px;
+}
+
+.toast-message {
+    font-size: 13px; color: var(--text-light); line-height: 1.4;
+}
+
+/* ============================================
+   REDUCED MOTION
+   ============================================ */
+@media (prefers-reduced-motion: reduce) {
+    *, *::before, *::after {
+        animation-duration: 0.01ms !important;
+        animation-iteration-count: 1 !important;
+        transition-duration: 0.01ms !important;
+    }
+    .page, .timeline-item, .skill-category {
+        animation: none !important;
+        opacity: 1 !important;
+        transform: none !important;
+    }
+    .section-hint { animation: none !important; opacity: 0.6 !important; }
+}
+
+/* ============================================
+   PRINT
+   ============================================ */
+@media print {
+    *, *::before, *::after { animation: none !important; transition: none !important; }
+    .bottom-nav, .fixed-header, .section-hint { display: none !important; }
+    .snap-section { height: auto !important; min-height: auto !important; }
+}
