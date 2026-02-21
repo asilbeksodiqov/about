@@ -1,0 +1,185 @@
+<!DOCTYPE html>
+<html lang="uz" dir="ltr">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Asilbek Sodiqov | Haqida</title>
+    <meta name="description" content="Asilbek Sodiqov haqida - Data Analyst va Yurist.">
+    <meta name="author" content="Asilbek Sodiqov">
+
+    <link rel="manifest" href="manifest.json">
+    <meta name="theme-color" content="#2563eb">
+    <link rel="icon" type="image/x-icon" href="/favicon.ico">
+
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@100;200;300;400;500;600;700;800;900&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="about.css">
+</head>
+<body>
+    <!--
+        #app tuzilishi:
+        ┌─────────────────────┐  ← fixed-header (flex-shrink:0)
+        │  ← Haqida          │
+        ├─────────────────────┤
+        │                     │  ← .page (flex:1, snap scroll)
+        │   [snap-section 1]  │
+        │   [snap-section 2]  │
+        │                     │
+        ├─────────────────────┤
+        │  🏠   👤   ✈️       │  ← bottom-nav (flex-shrink:0)
+        └─────────────────────┘
+    -->
+    <main id="app">
+
+        <!-- 1. DOIM QADALGAN HEADER -->
+        <div class="fixed-header">
+            <button class="back-btn" onclick="window.location.href='index.html'">
+                <i class="fas fa-arrow-left"></i>
+                <span>Haqida</span>
+            </button>
+        </div>
+
+        <!-- 2. SNAP SCROLL MAYDONI (flex:1 — oradagi butun joy) -->
+        <div class="page active" id="about">
+
+            <!-- ============================
+                 SNAP 1: KARYERA
+                 ============================ -->
+            <div class="snap-section">
+
+                <!-- Content -->
+                <div class="about-container">
+                    <div class="timeline-section">
+                        <h3 class="section-title">
+                            <i class="fas fa-road"></i> Karyera :)
+                        </h3>
+
+                        <div class="timeline">
+                            <div class="timeline-item">
+                                <div class="timeline-icon">
+                                    <i class="fas fa-graduation-cap"></i>
+                                </div>
+                                <div class="timeline-content">
+                                    <div class="timeline-date">2025 - Hozir</div>
+                                    <h4>Magistratura</h4>
+                                    <div class="timeline-subtitle">Qoraqalpoq Davlat Universiteti</div>
+                                    <p>Yuridika fakulteti magistratura yo'nalishi</p>
+                                </div>
+                            </div>
+
+                            <div class="timeline-item">
+                                <div class="timeline-icon">
+                                    <i class="fas fa-chart-line"></i>
+                                </div>
+                                <div class="timeline-content">
+                                    <div class="timeline-date">2025 - Hozir</div>
+                                    <h4>Data Analyst</h4>
+                                    <div class="timeline-subtitle">"Ehtirom Plus" mikromoliya tashkiloti</div>
+                                    <p>Ma'lumotlar tahlili, Excel, Python va vizualizatsiya</p>
+                                    <div class="skill-tags">
+                                        <span class="skill-tag">Excel</span>
+                                        <span class="skill-tag">Data Analysis</span>
+                                        <span class="skill-tag">Python</span>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="timeline-item">
+                                <div class="timeline-icon">
+                                    <i class="fas fa-university"></i>
+                                </div>
+                                <div class="timeline-content">
+                                    <div class="timeline-date">2021 - 2025</div>
+                                    <h4>Bakalavriat</h4>
+                                    <div class="timeline-subtitle">Qo'qon Davlat Universiteti</div>
+                                    <p>Huquqshunoslik yo'nalishi</p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Pastga ishora -->
+                <div class="section-hint bottom" onclick="scrollToSection(1)">
+                    <i class="fas fa-chevron-down"></i>
+                    <span>Ko'nikmalar</span>
+                </div>
+
+            </div><!-- /snap-section 1 -->
+
+            <!-- ============================
+                 SNAP 2: KO'NIKMALAR
+                 ============================ -->
+            <div class="snap-section">
+
+                <!-- Tepaga ishora — xuddi pastdagi kabi uslubda -->
+                <div class="section-hint top" onclick="scrollToSection(0)">
+                    <i class="fas fa-chevron-up"></i>
+                    <span>Karyera</span>
+                </div>
+
+                <!-- Content -->
+                <div class="about-container">
+                    <div class="skills-section">
+                        <h3 class="section-title">
+                            <i class="fa-solid fa-gears"></i> Ko'nikmalarim
+                        </h3>
+
+                        <div class="skills-grid">
+                            <div class="skill-category">
+                                <div class="skill-list">
+                                    <div class="skill-item">
+                                        <span>Huquqiy bilim</span>
+                                        <div class="skill-bar">
+                                            <div class="skill-level" style="width: 60%"></div>
+                                        </div>
+                                    </div>
+                                    <div class="skill-item">
+                                        <span>Texnik bilim</span>
+                                        <div class="skill-bar">
+                                            <div class="skill-level" style="width: 80%"></div>
+                                        </div>
+                                    </div>
+                                    <div class="skill-item">
+                                        <span>Chet tili ko'nikmasi</span>
+                                        <div class="skill-bar">
+                                            <div class="skill-level" style="width: 60%"></div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+            </div><!-- /snap-section 2 -->
+
+        </div><!-- /.page -->
+
+        <!-- 3. DOIM QADALGAN BOTTOM NAV -->
+        <nav class="bottom-nav">
+            <button class="nav-btn" onclick="window.location.href='index.html'">
+                <i class="fas fa-home"></i>
+            </button>
+            <button class="nav-btn active">
+                <i class="fas fa-user"></i>
+            </button>
+            <button class="nav-btn" onclick="window.location.href='contact.html'">
+                <i class="fa-solid fa-paper-plane"></i>
+            </button>
+        </nav>
+
+    </main>
+
+    <script>
+        function scrollToSection(index) {
+            const page = document.getElementById('about');
+            const sections = page.querySelectorAll('.snap-section');
+            if (sections[index]) {
+                sections[index].scrollIntoView({ behavior: 'smooth' });
+            }
+        }
+    </script>
+</body>
+</html>
